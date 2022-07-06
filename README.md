@@ -1,4 +1,4 @@
-# LB02-simonlysser
+# LB02-simonlysser-routing
 
 This template should help get you started developing with Vue 3 in Vite.
 
