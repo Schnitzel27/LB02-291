@@ -1,0 +1,105 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div v-text="message3"></div>
+      <br />
+      <div v-text="message"></div>
+      <div v-html="message2"></div>
+
+      <div>
+        <h1>Count = {{ count }}</h1>
+        <button @click="increment">Anzahl erhöhen</button>
+        <button @click="decrement">Anzahl reduzieren</button>
+      </div>
+      <br />
+      <div v-if="count > 5">
+        Counter ist groesser als 5
+      </div>
+      <div v-else>
+        Counter ist kleiner als 5
+      </div>
+
+      <div>
+        <p v-if="data > 50">
+          data ist groesser als 50
+        </p>
+        <p v-else-if="data < 50">
+          data ist kleiner als 50
+        </p>
+        <p v-else>
+          data ist genau 50
+        </p>
+      </div>
+
+      <div>
+        <li v-for="item in items">
+          {{ item.message }}
+        </li>
+      </div>
+
+      <div>{{statemanagementcount}}</div>
+
+    </div>
+
+
+    <script>
+      new Vue ({
+        	el: '#app',
+          data: {
+            //hier sieht man, dass bei gleichem input nicht das gleiche Ergebnis herauskommt
+                message: '<h1>HELLO '+
+                           '<span style="color:green;">'+
+                              'WORLD v-text</span>'+
+                         '</h1>' ,
+                message2: '<h1>HELLO '+
+                           '<span style="color:blue;">'+
+                              'WORLD v-html</span>'+
+                         '</h1>',
+                message3: "Hallo Welt",
+                oldCount: 0,
+                count: 1,
+                //data ist momentan 20 d.h es wird immer der text data ist kleiner als 50 ausgegeben
+                data: 20,
+                items: [{ message: 'LB02'}, { message: 'Simon Lysser'}, { message: 'hello world'}, { message: 'modul 291'}, { message: 'mediamatik'}]
+            },
+            methods: {
+              increment() {
+                this.count += 1;
+              },
+              decrement() {
+                this.count -= 1;
+              }
+            },
+            watch: {
+              count(newVal,oldVal) {
+                console.log(`aktueller wert(${newVal}) und vorheriger Wert(${oldVal}`);
+                this.oldCount = oldVal;
+              }
+            },
+             });
+             
+             const store = createStore({
+                state: {
+                        statemanagementcount: 1
+                },
+                mutations: {
+                  increment (state) {
+                 // state verändern ("mutate")
+                  state.statemanagementcount++
+                  }
+                }
+              });
+
+              store.commit('increment');
+              console.log(store.state.statemanagementcount);
+    </script>
+  </body>
+
+  </html>
